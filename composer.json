@@ -1,0 +1,44 @@
+{
+  "name": "jarjak/collection",
+  "type": "library",
+  "description" : "Immutable, type-aware PHP Collection.",
+  "keywords": ["collection", "immutable"],
+  "homepage": "https://github.com/JarJak/Collection",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Jarek Jakubowski",
+      "email": "egger1991@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.1"
+  },
+  "scripts": {
+    "post-update-cmd": "cp -n phpunit.xml.dist phpunit.xml",
+    "test": [
+      "vendor/bin/phpunit",
+      "@cscheck"
+    ],
+    "cscheck": [
+      "php -d memory_limit=1024M vendor/bin/ecs check"
+    ],
+    "csfix": [
+      "php -d memory_limit=1024M vendor/bin/ecs check --fix"
+    ]
+  },
+  "autoload": {
+    "psr-4": {
+      "JarJak\\Collection\\": "src/JarJak/Collection"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9.4",
+    "symplify/easy-coding-standard": "^8.3"
+  }
+}
