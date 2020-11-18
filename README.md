@@ -11,9 +11,9 @@ This package is available on composer via packagist.
 
 `composer require jarjak/collection`
 
-## Basic usage
+## Usage
 
-### Initialization
+### Basic usage
 ```php
 use JarJak\Collection\Collection;
 
@@ -33,6 +33,9 @@ $plusYears = $dateCollection
 ```
 
 ### Adding type check feature
+
+One of the coolest features of this implementation is that you can set up your own specific, type-aware collections (think about them like aggregates / repositories). Then you can encapsulate any custom operations that you need to perform on a group of same-type objects (instead for doing it in foreach loop somewhere in your controller / service).
+
 ```php
 use JarJak\Collection\Collection;
 
@@ -57,12 +60,12 @@ class DateCollection extends Collection
     }
 }
 
-# this is ok
+# this is acceptable
 $dateCollection = new DateCollection(
     new DateTime(),
     new DateTimeImmutable()
 );
-# this is not
+# this will result in an error
 $dateCollection = new DateCollection(
     new DateTime(),
     new DateTimeImmutable(),
