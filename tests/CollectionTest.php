@@ -93,4 +93,17 @@ class CollectionTest extends TestCase
 
         $this->assertSame($expected, $result->toArray());
     }
+
+    public function testFirst(): void
+    {
+        $collection = Collection::from(range(1, 10));
+        $sum = 0;
+        foreach ($collection as $item) {
+            // just iterate over it
+            $sum += $item;
+        }
+
+        $this->assertSame($collection->first(), 1);
+        $this->assertSame(55, $sum);
+    }
 }

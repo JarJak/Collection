@@ -120,6 +120,17 @@ class Collection extends \SplFixedArray implements \JsonSerializable
         return static::from($array);
     }
 
+    public function first()
+    {
+        if ($this instanceof \IteratorAggregate) {
+            // PHP 8: SplFixedArray no longer implements Iterator
+            $this->getIterator()->rewind();
+            return $this->getIterator()->current() ?: null;
+        }
+        $this->rewind();
+        return $this->current() ?: null;
+    }
+
     public function jsonSerialize(): array
     {
         return $this->toArray();
