@@ -105,6 +105,9 @@ class CollectionTest extends TestCase
 
         $this->assertSame($collection->first(), 1);
         $this->assertSame(55, $sum);
+
+        $emptyCollection = new Collection();
+        $this->assertSame($emptyCollection->first(), null);
     }
 
     public function testAdd(): void
