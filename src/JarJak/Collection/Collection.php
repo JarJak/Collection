@@ -70,6 +70,15 @@ class Collection extends \SplFixedArray implements \JsonSerializable
         return static::from(array_filter($this->toArray(), $callback, ARRAY_FILTER_USE_BOTH));
     }
 
+    public function add($item): self
+    {
+        $newIndex = $this->count();
+
+        return static::from($this->toArray() + [
+            $newIndex => $item,
+        ]);
+    }
+
     public function remove($element)
     {
         $array = $this->toArray();

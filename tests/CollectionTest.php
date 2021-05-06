@@ -106,4 +106,15 @@ class CollectionTest extends TestCase
         $this->assertSame($collection->first(), 1);
         $this->assertSame(55, $sum);
     }
+
+    public function testAdd(): void
+    {
+        $collection = Collection::from(range(1, 3));
+        $collection = $collection->add(5);
+        $collection = $collection->add(5);
+        $collection = $collection->add(3);
+
+        $this->assertSame($collection->count(), 6);
+        $this->assertSame($collection->toArray(), [1, 2, 3, 5, 5, 3]);
+    }
 }
