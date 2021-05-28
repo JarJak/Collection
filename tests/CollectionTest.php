@@ -120,4 +120,12 @@ class CollectionTest extends TestCase
         $this->assertSame($collection->count(), 6);
         $this->assertSame($collection->toArray(), [1, 2, 3, 5, 5, 3]);
     }
+
+    public function testFromAssociativeArray(): void
+    {
+        $input = ['foo' => 'bar', 'bar' => 'baz'];
+
+        $service2 = Collection::from($input);
+        $this->assertSame(array_values($input), $service2->toArray());
+    }
 }
