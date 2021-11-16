@@ -94,6 +94,29 @@ class CollectionTest extends TestCase
         $this->assertSame($expected, $result->toArray());
     }
 
+    public function testFromConstructor()
+    {
+        $dates = [
+            new \DateTimeImmutable('now'),
+            new \DateTimeImmutable('-5 years'),
+            new \DateTimeImmutable('+5 years'),
+        ];
+
+        $dateCollectionClass = new class() extends Collection {
+            // accept only date objects
+            public function __construct(\DateTimeImmutable ...$items)
+            {
+                parent::__construct(...$items);
+            }
+        };
+
+        $resultFromArray = $dateCollectionClass::from($dates);
+        $this->assertSame($dates, $resultFromArray->toArray());
+
+        $resultFromIterable = $dateCollectionClass::from((fn (): iterable => yield from $dates)());
+        $this->assertSame($dates, $resultFromIterable->toArray());
+    }
+
     public function testFlatMapOnDeepAssociative()
     {
         $input = [

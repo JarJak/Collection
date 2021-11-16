@@ -18,7 +18,7 @@ class Collection extends \SplFixedArray implements \JsonSerializable
     public static function from(iterable $array)
     {
         if (\is_array($array) || $array instanceof \ArrayAccess) {
-            return new static(...(array) $array);
+            return new static(...$array);
         }
 
         return new static(...$array);
