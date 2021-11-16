@@ -10,15 +10,15 @@ class Collection extends \SplFixedArray implements \JsonSerializable
     {
         parent::__construct(\count($items));
 
-        foreach ($items as $i => $item) {
+        foreach (array_values($items) as $i => $item) {
             $this[$i] = $item;
         }
     }
 
     public static function from(iterable $array)
     {
-        if (\is_array($array)) {
-            return new static(...array_values($array));
+        if (\is_array($array) || $array instanceof \ArrayAccess) {
+            return new static(...(array) $array);
         }
 
         return new static(...$array);
@@ -53,7 +53,22 @@ class Collection extends \SplFixedArray implements \JsonSerializable
         return static::from(
             array_merge(
                 ...array_map(
-                    $callback,
+                    'array_values',
+                    array_map(
+                        $callback,
+                        $this->toArray()
+                    )
+                )
+            )
+        );
+    }
+
+    public function flatten()
+    {
+        return static::from(
+            array_merge(
+                ...array_map(
+                    'array_values',
                     $this->toArray()
                 )
             )
@@ -149,6 +164,11 @@ class Collection extends \SplFixedArray implements \JsonSerializable
         $iterator->rewind();
 
         return $iterator->current();
+    }
+
+    public function slice(?int $maxItems, int $itemsToSkipFromBeginning = 0): self
+    {
+        return static::from(array_slice($this->toArray(), $itemsToSkipFromBeginning, $maxItems));
     }
 
     public function jsonSerialize(): array

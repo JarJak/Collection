@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use PhpCsFixer\Fixer\ClassNotation\ClassDefinitionFixer;
 use PhpCsFixer\Fixer\ControlStructure\YodaStyleFixer;
+use PhpCsFixer\Fixer\FunctionNotation\VoidReturnFixer;
 use PhpCsFixer\Fixer\PhpTag\BlankLineAfterOpeningTagFixer;
 use PhpCsFixer\Fixer\Whitespace\ArrayIndentationFixer;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
@@ -55,6 +56,9 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             '*Test.php',
         ],
         ClassDefinitionFixer::class => [
+            '*Test.php',
+        ],
+        VoidReturnFixer::class => [
             '*Test.php',
         ],
     ]);
