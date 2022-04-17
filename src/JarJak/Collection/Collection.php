@@ -10,18 +10,15 @@ class Collection extends \SplFixedArray implements \JsonSerializable
     {
         parent::__construct(\count($items));
 
-        foreach (array_values($items) as $i => $item) {
-            $this[$i] = $item;
+        $i = 0;
+        foreach ($items as $item) {
+            $this[$i++] = $item;
         }
     }
 
-    public static function from(iterable $array)
+    public static function from(iterable $iterable)
     {
-        if (\is_array($array) || $array instanceof \ArrayAccess) {
-            return new static(...$array);
-        }
-
-        return new static(...$array);
+        return new static(...$iterable);
     }
 
     public function isEmpty(): bool
